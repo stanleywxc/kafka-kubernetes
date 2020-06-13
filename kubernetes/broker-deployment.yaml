@@ -1,0 +1,32 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: kafka-broker
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: kafka-broker
+  template:
+    metadata:
+      labels:
+        component: kafka-broker
+    spec:
+      containers:
+        - name: kafka-broker
+          image: stanleywxc/kafka:2.3.0
+          command: ["/start-broker"]
+          ports:
+            - containerPort: 9092
+          resources:
+            requests:
+              cpu: 100m
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
+      volumes:
+        - name: data-volume
+          hostPath:
+            # directory location on host
+            path: /Users/stanley/tmp/data
+            type: Directory

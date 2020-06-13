@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Get the server id
+server_id=$(echo $(hostname -i) | awk -F '.' '{print $4}')
+
+/opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.kubernetes.properties \
+			--override broker.id=${server_id} \
+			--override log.dirs=/data/kafka/kafka-${server_id}-log 

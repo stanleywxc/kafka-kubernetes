@@ -1,0 +1,32 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: kafka-zookeeper
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: kafka-zookeeper
+  template:
+    metadata:
+      labels:
+        component: kafka-zookeeper
+    spec:
+      containers:
+        - name: kafka-zookeeper
+          image: stanleywxc/kafka:2.3.0
+          command: ["/start-zookeeper"]
+          ports:
+            - containerPort: 2181
+          resources:
+            requests:
+              cpu: 100m
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
+      volumes:
+        - name: data-volume
+          hostPath:
+            # directory location on host
+            path: /Users/stanley/tmp/data
+            type: Directory
