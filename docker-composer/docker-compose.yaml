@@ -1,0 +1,50 @@
+version: '2'
+services:
+  kafka-zookeeper-service:
+    image: stanleywxc/kafka:2.3.0
+    container_name: kafka-zookeeper-service
+    ports:
+      - "2181:2181"
+    command: /start-zookeeper
+    volumes:
+    - /Users/stanley/tmp/data/kafka:/data/kafka
+
+  kafka-broker-1:
+    image: stanleywxc/kafka:2.3.0
+    container_name: kafka-broker-1
+    depends_on:
+      - kafka-zookeeper-service
+    ports:
+      - "9092:9092"
+    environment:
+      - BROKER_ID=1
+    command: /start-broker
+    volumes:
+    - /Users/stanley/tmp/data/kafka:/data/kafka
+
+  kafka-broker-2:
+    image: stanleywxc/kafka:2.3.0
+    container_name: kafka-broker-2
+    depends_on:
+      - kafka-zookeeper-service
+    ports:
+      - "9093:9092"
+    environment:
+      - BROKER_ID=2
+    command: /start-broker
+    volumes:
+    - /Users/stanley/tmp/data/kafka:/data/kafka
+
+  kafka-broker-3:
+    image: stanleywxc/kafka:2.3.0
+    container_name: kafka-broker-3
+    depends_on:
+      - kafka-zookeeper-service
+    ports:
+      - "9094:9092"
+    environment:
+      - BROKER_ID=3
+    command: /start-broker
+    volumes:
+    - /Users/stanley/tmp/data/kafka:/data/kafka
+    
