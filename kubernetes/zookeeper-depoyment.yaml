@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: kafka-zookeeper
-          image: stanleywxc/kafka:2.3.0
+          image: stanleywxc/kafka:2.5.0
           command: ["/start-zookeeper"]
           ports:
             - containerPort: 2181

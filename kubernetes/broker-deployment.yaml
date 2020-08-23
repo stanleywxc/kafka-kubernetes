@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: kafka-broker
-          image: stanleywxc/kafka:2.3.0
+          image: stanleywxc/kafka:2.5.0
           command: ["/start-broker"]
           ports:
             - containerPort: 9092
