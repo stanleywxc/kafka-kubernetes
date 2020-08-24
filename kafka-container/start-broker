@@ -9,6 +9,14 @@ else
 	broker_id=$(echo $BROKER_ID)
 fi
 
+if [ -z ${LISTENERS+x} ]; 
+then 
+	listeners=PLAINTEXT://:9092
+else 
+	listeners=$(echo $LISTENERS)
+fi
+
 /opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.kubernetes.properties \
 			--override broker.id=${broker_id} \
+			--override listeners=${listeners} \
 			--override log.dirs=/data/kafka/broker-${broker_id}-log 
