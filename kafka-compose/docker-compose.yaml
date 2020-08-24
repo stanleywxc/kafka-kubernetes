@@ -64,6 +64,25 @@ services:
     networks:
       - kafka-net
 
+  schema-registry-service:
+    image: confluentinc/cp-schema-registry:5.3.2
+    container_name: schema-registry-service
+    restart: always
+    depends_on:
+      - kafka-zookeeper-service
+      - kafka-broker-1
+      - kafka-broker-2
+      - kafka-broker-3
+    ports:
+      - "18081:8081"
+    environment:
+      - SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL=kafka-zookeeper-service:2181
+      - SCHEMA_REGISTRY_HOST_NAME=localhost
+      - SCHEMA_REGISTRY_LISTENERS=http://0.0.0.0:8081
+      - SCHEMA_REGISTRY_DEBUG=true
+    networks:
+      - kafka-net
+
 networks:
   kafka-net:
     name: kafka-net
